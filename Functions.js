@@ -148,8 +148,8 @@ function getBigQuerySqlRequest(table){
       "." +
       table +
       " " +
-      "Where DATE BETWEEN '2020-09-10' AND '2020-09-20' Group by DATE, Country,target Order by DATE ASC;",
-    //"Where DATE BETWEEN '"+dateToExecute+"' AND '"+dateToExecute+"' Group by DATE, Country,target Order by DATE ASC;"
+      //"Where DATE BETWEEN '2020-09-10' AND '2020-09-20' Group by DATE, Country,target Order by DATE ASC;",
+      "Where DATE BETWEEN '"+dateToExecute+"' AND '"+dateToExecute+"' Group by DATE, Country,target Order by DATE ASC;"
   };
   return request;
 }
