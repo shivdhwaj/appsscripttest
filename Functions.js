@@ -1,6 +1,6 @@
 function getUser(){
   //We are making server call here, if runs successfully then we can grab the data from apis as well
-  var url = 'https://notifications.parenttown.com/api/v2/daily/journey/push?userId=1&type=tips';
+  var url = api_url;
   Logger.log(url);
   var response = UrlFetchApp.fetch(url);
   var json = response.getContentText();
@@ -139,11 +139,16 @@ function letterToColumn(letter)
 
 function getBigQuerySqlRequest(table){
   var request = {
-    query: "#standardSQL "+
-    "\n"+
-    "SELECT DATE as date,Country as country,target, SUM (COUNT) as count "+
-    "FROM xxxx."+table+" "+
-    "Where DATE BETWEEN '2020-09-10' AND '2020-09-20' Group by DATE, Country,target Order by DATE ASC;"
+    query:
+      "#standardSQL " +
+      "\n" +
+      "SELECT DATE as date,Country as country,target, SUM (COUNT) as count " +
+      "FROM " +
+      schemaTable +
+      "." +
+      table +
+      " " +
+      "Where DATE BETWEEN '2020-09-10' AND '2020-09-20' Group by DATE, Country,target Order by DATE ASC;",
     //"Where DATE BETWEEN '"+dateToExecute+"' AND '"+dateToExecute+"' Group by DATE, Country,target Order by DATE ASC;"
   };
   return request;

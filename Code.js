@@ -2,12 +2,15 @@ var projectId = '';
 var dateToExecute = '';
 var rows = '';
 var spreadsheetId = '';
-var coreMarkets = ['Malaysia','Vietnam','Philippines','Thailand','Indonesia','Singapore'];
+var coreMarkets = '';
 var activeSheetName = '';
 var activeColumn = '';
 var tableToQuery = '';
+var schemaTable = '';
+var api_url = ''; 
 
 function main(){
+  config();
   //This is the main function we are planing to run
   addSheetsTabForCoreMarkets();
   //setDateHeaderToSheet();
@@ -17,7 +20,6 @@ function main(){
   sleepScriptJS();
   mediaMain();
 }
-
 
 function deleteCoreSheets(){
   for (var i = 0; i < coreMarkets.length; i++) {
