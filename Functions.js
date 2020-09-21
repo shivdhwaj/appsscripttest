@@ -73,7 +73,7 @@ function setYesterdayDate() {
   /*
   Logger.log(Utilities.formatDate(today, 'Asia/Singapore', 'MMMM dd, yyyy HH:mm:ss Z'));
   */
-  var yesterday = new Date(new Date().setDate(new Date().getDate()-2));//Reason BigQuery DBs Get data one day after actual collection dumped 
+  var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
   //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
   dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
   //dateToExecute = '2020-09-10';
