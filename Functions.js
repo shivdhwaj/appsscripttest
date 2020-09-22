@@ -153,3 +153,19 @@ function getBigQuerySqlRequest(table){
   };
   return request;
 }
+
+function freezeFirstColumnAndRow() {
+  //config(); //Need to run this function call if needed independently run needed for this function 
+  for (var i = 0; i < coreMarkets.length; i++) {
+    var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(
+      coreMarkets[i]
+    );
+    if (!sheet) {
+      var sheet = SpreadsheetApp.openById(spreadsheetId).insertSheet(
+        coreMarkets[i]
+      );
+    }
+    sheet.setFrozenColumns(1);
+    sheet.setFrozenRows(1);
+  }
+}
