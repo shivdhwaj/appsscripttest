@@ -73,7 +73,7 @@ function setYesterdayDate() {
   /*
   Logger.log(Utilities.formatDate(today, 'Asia/Singapore', 'MMMM dd, yyyy HH:mm:ss Z'));
   */
-  var yesterday = new Date(new Date().setDate(new Date().getDate()-2));//Reason BigQuery DBs Get data one day after actual collection dumped 
+  var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
   //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
   dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
   //dateToExecute = '2020-09-10';
@@ -152,4 +152,20 @@ function getBigQuerySqlRequest(table){
       "Where DATE BETWEEN '"+dateToExecute+"' AND '"+dateToExecute+"' Group by DATE, Country,target Order by DATE ASC;"
   };
   return request;
+}
+
+function freezeFirstColumnAndRow() {
+  //config(); //Need to run this function call if needed independently run needed for this function 
+  for (var i = 0; i < coreMarkets.length; i++) {
+    var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(
+      coreMarkets[i]
+    );
+    if (!sheet) {
+      var sheet = SpreadsheetApp.openById(spreadsheetId).insertSheet(
+        coreMarkets[i]
+      );
+    }
+    sheet.setFrozenColumns(1);
+    sheet.setFrozenRows(1);
+  }
 }
