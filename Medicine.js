@@ -84,7 +84,7 @@ function medicineUpdateDataToSheet() {
           ]
         };
         var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground("#00FFFF");
+        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor);
         //Logger.log(response);
       }
       if(cellNo){
@@ -124,14 +124,14 @@ function medicineUpdateDataToSheet() {
 
 function getCellNoForMedicine(forDataType){
   var cellNo = '';
-  if(forDataType == 'medicine'){
-    cellNo = '9';
-  }
   if(forDataType == 'medicine category'){
-    cellNo = '10';
+    cellNo = '14';
   }
   if(forDataType == 'medicine category click'){
-    cellNo = '11';
+    cellNo = '15';
+  }
+  if(forDataType == 'medicine'){
+    cellNo = '16';
   }
   return cellNo;
 }

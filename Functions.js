@@ -61,7 +61,7 @@ function setDateHeaderToSheet(){
     }
     if(isDateAlreadyExists == false){
        var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-       var sheet = sheet.getRange(coreMarkets[i]+'!'+activeColumn+'1:'+activeColumn+'1').setBackground("#134F5C");
+       var sheet = sheet.getRange(coreMarkets[i]+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor);
        //Logger.log(response);
     }
   } 

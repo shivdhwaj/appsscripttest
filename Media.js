@@ -84,7 +84,7 @@ function mediaUpdateDataToSheet() {
           ]
         };
         var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground("#00FFFF");
+        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor);
         //Logger.log(response);
       }
       if(cellNo){
@@ -123,13 +123,13 @@ function mediaUpdateDataToSheet() {
 function getCellNoForMedia(forDataType){
   var cellNo = '';
   if(forDataType == 'play video'){
-         cellNo = '13';
+         cellNo = '31';
       }
   if(forDataType == 'play audio'){
-    cellNo = '14';
+    cellNo = '32';
   }
   if(forDataType == 'collection'){
-    cellNo = '15';
+    cellNo = '33';
   }
   return cellNo;
 }

@@ -8,6 +8,7 @@ var activeColumn = '';
 var tableToQuery = '';
 var schemaTable = '';
 var api_url = ''; 
+var dateRowBackgroundColor = "#134F5C";
 
 function main(){
   config();
@@ -22,6 +23,7 @@ function main(){
 }
 
 function deleteCoreSheets(){
+  //config();
   for (var i = 0; i < coreMarkets.length; i++) {
     var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(coreMarkets[i]);
     if(sheet)

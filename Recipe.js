@@ -87,7 +87,7 @@ function recipeUpdateDataToSheet() {
           ]
         };
         var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground("#00FFFF");
+        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor);
         //Logger.log(response);
       }
       if(cellNo){
@@ -127,23 +127,23 @@ function recipeUpdateDataToSheet() {
 
 function getCellNoForRecipe(forDataType){
   var cellNo = '';
-  if(forDataType == 'recipe details'){
-    cellNo = '2';
-  }
   if(forDataType == 'recipe home'){
-    cellNo = '3';
-  }
-  if(forDataType == 'recipe listing'){
-    cellNo = '4';
+    cellNo = '20';
   }
   if(forDataType == 'recipe search'){
-    cellNo = '5';
+    cellNo = '21';
   }
-  if(forDataType == 'recipe bookmarks'){
-    cellNo = '6';
+  if(forDataType == 'recipe listing'){
+    cellNo = '22';
+  }
+  if(forDataType == 'recipe details'){
+    cellNo = '23';
   }
   if(forDataType == 'collection listing'){
-    cellNo = '7';
+    cellNo = '24';
+  }
+  if(forDataType == 'recipe bookmarks'){
+    cellNo = '25';
   }
   return cellNo;
 }
