@@ -13,6 +13,7 @@ var dateRowFontColor = "#FFFFFF";
 var emailAddress = '';
 
 function main(){
+  //deleteCoreSheets();
   config();
   //This is the main function we are planing to run
   addSheetsTabForCoreMarkets();
@@ -24,6 +25,8 @@ function main(){
   mediaMain();
   sleepScriptJS();
   trackerMain();
+  sleepScriptJS();
+  activityMain();
 }
 
 function deleteCoreSheets(){

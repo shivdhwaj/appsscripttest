@@ -277,7 +277,10 @@ function _createDateHeaderOnSheet(sheet, activeColumn, sheetName, cellRowValue){
   //Logger.log(sheetName+'!'+activeColumn+'1:'+activeColumn+'1');
   sheet.getRange(sheetName+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor).setFontColor(dateRowFontColor);
   var formulaSum = "=SUM("+sheetName+"!"+activeColumn+"3:"+activeColumn+"39)";
+  var lastColumnNo = sheet.getLastColumn()+1;
   sheet.getRange(sheetName+'!'+activeColumn+'2').setFormula(formulaSum);
+  //sheet.autoResizeColumns(sheetName+'!'+activeColumn+'1', sheetName+'!'+activeColumn+lastColumnNo);
+  sheet.autoResizeColumns(1, lastColumnNo);
   //Logger.log(response);
   //Logger.log("Functions Script: Line no 281 - _createDateHeaderOnSheet()");
   //Logger.log('getRange: '+sheetName+'!'+activeColumn+'1:'+activeColumn+'1');
