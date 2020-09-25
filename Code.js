@@ -9,6 +9,8 @@ var tableToQuery = '';
 var schemaTable = '';
 var api_url = ''; 
 var dateRowBackgroundColor = "#134F5C";
+var dateRowFontColor = "#FFFFFF";
+var emailAddress = '';
 
 function main(){
   config();
@@ -23,12 +25,16 @@ function main(){
 }
 
 function deleteCoreSheets(){
-  //config();
+  config();
   for (var i = 0; i < coreMarkets.length; i++) {
     var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(coreMarkets[i]);
     if(sheet)
       SpreadsheetApp.openById(spreadsheetId).deleteSheet(sheet);
   }
+}
+
+function sendEmail(emailAddress){
+  MailApp.sendEmail(emailAddress, 'GAScript Run [Done]', 'GAScript Run Emailer');
 }
 
 function oneTimer(){
