@@ -61,7 +61,7 @@ function setDateHeaderToSheet(){
     }
     if(isDateAlreadyExists == false){
        var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-       var sheet = sheet.getRange(coreMarkets[i]+'!'+activeColumn+'1:'+activeColumn+'1').setBackground("#00FFFF");
+       var sheet = sheet.getRange(coreMarkets[i]+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor);
        //Logger.log(response);
     }
   } 
@@ -75,23 +75,85 @@ function setYesterdayDate() {
   */
   var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
   //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
-  dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
-  //dateToExecute = '2020-09-10';
+  dateFromExecute = dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
+  dateToExecute = '2020-09-08';
+  dateFromExecute = '2020-09-01';
   //Logger.log(dateToExecute);
 } 
 
 
 //This function will create sheet tab if not there for core markets and set the column a values 
 function addSheetsTabForCoreMarkets(){
+  //config();
   //We need to make sure the alignment with the cell values for daily data
   var columnAValues = [
-      [
-        'Feature/Date',
-        'Recipes Detail', 'Recipe Home', 'Recipe Listing','Recipe search','Recipe bookmark', 'Collection listing', '',
-        'Medicine','Medicine Category','Medicine Category Click', '',
-        'Play Video','Play Audio','Collection',''
-      ]
-    ];
+    [
+      'Feature/Date',
+      'Total Activities',
+      'Pregnancy Tracker',
+      'Pregnancy Tracker',
+      'Baby Tracker',
+      'Baby Tracker',
+      'Kick Counter',
+      'Kick Counter',
+      'Articles',
+      'Article Clicks',
+      'Checklist',
+      'Checklist Home',
+      'Medicine',
+      'Medicine Category',
+      'Medicine Category Click',
+      'Medicine',
+      'Food & Nutrition',
+      'Food & Nutrition Home',
+      'Recipes',
+      'Recipe Home',
+      'Recipe Search',
+      'Recipe Listing',
+      'Recipes Detail',
+      'Collection Listing',
+      'Recipe Bookmark',
+      'Activities',
+      'Activities Home',
+      'Baby Name',
+      'Baby Name Generator',
+      'Media Module',
+      'Play Video',
+      'Play Audio',
+      'Collection',
+      'Healing Mode',
+      'Healing Mode',
+      'Rewards',
+      'Rewards Redeem',
+      'Contest',
+      'Contest Participants',
+      '',
+      '',
+      'Total Interactions',
+      'Community',
+      'Questions (user)',
+      'Questions (internal)',
+      'Question Follow (user)',
+      'Question Likes (user)',
+      'Answers (user)',
+      'Answers (internal)',
+      'Answers Likes (user)',
+      'Answers Likes (internal)',
+      'Comments',
+      'User Follow (exclude staff)',
+      'Polls',
+      'Poll Votes',
+      'Poll Likes',
+      'Poll Comments',
+      'Photobooth',
+      'Pictures',
+      'Picture Likes',
+      'Picture Comments',
+      'Frames',
+      'Sticker',
+      ''
+    ],
+  ];
   //If we add new cells then it should auto be added without errors
   var totalCellsColumnA = columnAValues[0].length;
   var data = [];
@@ -110,8 +172,35 @@ function addSheetsTabForCoreMarkets(){
       'valueInputOption': 'USER_ENTERED',
       'data': data
     };
+  //Logger.log(data);
   var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
   //Logger.log(response);
+  for (var i = 0; i < coreMarkets.length; i++) {
+    var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(coreMarkets[i]);
+    if (!sheet) {
+      var sheet = SpreadsheetApp.openById(spreadsheetId).insertSheet(coreMarkets[i]);
+    }
+    sheet.getRange("A1").setFontWeight("bold");
+    sheet.getRange("A2").setFontWeight("bold").setBackground("#FCE5CD");
+    sheet.getRange("A3").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A5").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A7").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A9").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A11").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A13").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A17").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A19").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A26").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A28").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A30").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A34").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A36").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A38").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A42").setFontWeight("bold").setFontStyle("italic").setBackground("#FFF2CC");
+    sheet.getRange("A43").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A54").setFontWeight("bold").setFontStyle("italic");
+    sheet.getRange("A58").setFontWeight("bold").setFontStyle("italic");
+  } 
 }
 
 
@@ -149,7 +238,7 @@ function getBigQuerySqlRequest(table){
       table +
       " " +
       //"Where DATE BETWEEN '2020-09-10' AND '2020-09-20' Group by DATE, Country,target Order by DATE ASC;",
-      "Where DATE BETWEEN '"+dateToExecute+"' AND '"+dateToExecute+"' Group by DATE, Country,target Order by DATE ASC;"
+      "Where DATE BETWEEN '"+dateFromExecute+"' AND '"+dateToExecute+"' Group by DATE, Country,target Order by DATE ASC;"
   };
   return request;
 }
