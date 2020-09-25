@@ -87,7 +87,7 @@ function recipeUpdateDataToSheet() {
           ]
         };
         var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor);
+        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor).setFontColor(dateRowFontColor);
         //Logger.log(response);
       }
       if(cellNo){
