@@ -75,7 +75,8 @@ function recipeUpdateDataToSheet() {
         }
       }
       if(isDateAlreadyExists == false){
-        _createDateHeaderOnSheet(activeColumn, cols[1].v, cols[0].v);
+        sheetDateCellName = activeColumn;
+        _createDateHeaderOnSheet(sheet,activeColumn, cols[1].v, cols[0].v);
       }
       if(cellNo){
         var dataAdd = {};

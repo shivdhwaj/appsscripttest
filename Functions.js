@@ -77,7 +77,7 @@ function setYesterdayDate() {
   var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
   //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
   dateFromExecute = dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
-  dateToExecute = '2020-09-08';
+  dateToExecute = '2020-09-02';
   dateFromExecute = '2020-09-01';
   //Logger.log(dateToExecute);
 } 
@@ -260,26 +260,27 @@ function freezeFirstColumnAndRow() {
   }
 }
 
-function _createDateHeaderOnSheet(activeColumn, columnValue, cellRowValue){
+function _createDateHeaderOnSheet(sheet, activeColumn, sheetName, cellRowValue){
   //sheet.getRange("B2").setFormula("=SUM(B3:B39)");
   sheetDateCellName = activeColumn;
   var request = {
     'valueInputOption': 'USER_ENTERED',
     'data': [
       {
-        'range': columnValue+'!'+activeColumn+'1:'+activeColumn+'1',
+        'range': sheetName+'!'+activeColumn+'1:'+activeColumn+'1',
         'majorDimension': 'COLUMNS',
         'values': [[cellRowValue]]
       }
     ]
   };
   var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-  var sheet = sheet.getRange(columnValue+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor).setFontColor(dateRowFontColor);
-  var formulaSum = "=SUM("+columnValue+"!"+activeColumn+"3:"+activeColumn+"39)";
-  sheet.getRange(columnValue+'!'+activeColumn+'2').setFormula(formulaSum);
+  //Logger.log(sheetName+'!'+activeColumn+'1:'+activeColumn+'1');
+  sheet.getRange(sheetName+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor).setFontColor(dateRowFontColor);
+  var formulaSum = "=SUM("+sheetName+"!"+activeColumn+"3:"+activeColumn+"39)";
+  sheet.getRange(sheetName+'!'+activeColumn+'2').setFormula(formulaSum);
   //Logger.log(response);
-  Logger.log("Functions Script: Line no 281 - _createDateHeaderOnSheet()");
-  Logger.log('getRange: '+columnValue+'!'+activeColumn+'1:'+activeColumn+'1');
-  Logger.log('Formula Sum getRange: '+columnValue+'!'+activeColumn+'2');
-  Logger.log('Formula Sum: '+formulaSum);
+  //Logger.log("Functions Script: Line no 281 - _createDateHeaderOnSheet()");
+  //Logger.log('getRange: '+sheetName+'!'+activeColumn+'1:'+activeColumn+'1');
+  //Logger.log('Formula Sum getRange: '+sheetName+'!'+activeColumn+'2');
+  //Logger.log('Formula Sum: '+formulaSum);
 }
