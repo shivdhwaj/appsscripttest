@@ -87,9 +87,27 @@ function addSheetsTabForCoreMarkets(){
   var columnAValues = [
       [
         'Feature/Date',
-        'Recipes Detail', 'Recipe Home', 'Recipe Listing','Recipe search','Recipe bookmark', 'Collection listing', '',
-        'Medicine','Medicine Category','Medicine Category Click', '',
-        'Play Video','Play Audio','Collection',''
+        'Total Activities',
+        'Pregnancy Tracker','Pregnancy Tracker',
+        'Baby Tracker','Baby Tracker',
+        'Kick Counter','Kick Counter',
+        'Articles', 'Article Clicks',
+        'Checklist', 'Checklist Home',
+        'Medicine', 'Medicine Category', 'Medicine Category Click', 'Medicine',
+        'Food & Nutrition', 'Food & Nutrition Home',
+        'Recipes', 'Recipe Home', 'Recipe Search', 'Recipe Listing', 'Recipes Detail', 'Collection Listing', 'Recipe Bookmark',
+        'Activities', 'Activities Home',
+        'Baby Name', 'Baby Name Generator',
+        'Media Module', 'Play Video', 'Play Audio', 'Collection',
+        'Healing Mode', 'Healing Mode',
+        'Rewards', 'Rewards Redeem',
+        'Contest', 'Contest Participants',
+        '','',
+        'Total Interactions',
+        'Community', 'Questions (user)', 'Questions (internal)', 'Question Follow (user)','Question Likes (user)','Answers (user)','Answers (internal)','Answers Likes (user)','Answers Likes (internal)','Comments','User Follow (exclude staff)',
+        'Polls','Poll Votes','Poll Likes','Poll Comments',
+        'Photobooth','Pictures','Picture Likes','Picture Comments','Frames','Sticker',
+        ''
       ]
     ];
   //If we add new cells then it should auto be added without errors
