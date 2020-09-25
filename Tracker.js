@@ -70,7 +70,8 @@ function trackerUpdateDataToSheet() {
         }
       }
       if(isDateAlreadyExists == false){
-        _createDateHeaderOnSheet(activeColumn, cols[1].v, cols[0].v);
+        sheetDateCellName = activeColumn;
+        _createDateHeaderOnSheet(sheet, activeColumn, cols[1].v, cols[0].v);
       }
       if(cellNo){
         var dataAdd = {};
@@ -98,7 +99,7 @@ function trackerUpdateDataToSheet() {
     //Logger.log(dataForbatchUpdate);
     var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
     //Logger.log(response);
-    Logger.log(countryData);
+    //Logger.log(countryData);
     Logger.log('Tracker Results updated');
   } else {
     Logger.log('Tracker No rows returned.');
