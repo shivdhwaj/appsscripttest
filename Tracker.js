@@ -1,17 +1,13 @@
-function recipeMain(){
+function trackerMain(){
   setYesterdayDate(); //Functions.gs
-  getRecipeCountMetrics(); //Recipe.gs
-  recipeUpdateDataToSheet(); //Recipe.gs
+  getTrackerCountMetrics(); //Medicine.gs
+  trackerUpdateDataToSheet(); //Medicine.gs
 }
 
-
-
-function getRecipeCountMetrics(){
-  //Logger.log("Date to execute "+dateToExecute);
-  var request = getBigQuerySqlRequest('recipe_count_metrics_core_markets_master');
+function getTrackerCountMetrics(){
+  var request = getBigQuerySqlRequest('tracker_count_metrics_core_markets_master');
   var queryResults = BigQuery.Jobs.query(request, projectId);
   var jobId = queryResults.jobReference.jobId;
-
   // Check on status of the Query Job.
   var sleepTimeMs = 500;
   while (!queryResults.jobComplete) {
@@ -28,11 +24,10 @@ function getRecipeCountMetrics(){
     });
     rows = rows.concat(queryResults.rows);
   }
-  //recipeUpdateDataToSheet();
 }
 
-function recipeUpdateDataToSheet() {
-  cellWillStartFrom = 2;
+function trackerUpdateDataToSheet() {
+  cellWillStartFrom = 14;
   var dataForbatchUpdate = [];
   if (rows) {
     var countryData = [];
@@ -47,11 +42,11 @@ function recipeUpdateDataToSheet() {
       if(!(cols[0].v in countryData[cols[1].v]))
         countryData[cols[1].v][cols[0].v] = [];
        countryData[cols[1].v][cols[0].v][cols[2].v]= cols[3].v; //Country - Date - Type = Count
-      cellNo = getCellNoForRecipe(cols[2].v);
-     
+      cellNo = getCellNoForTracker(cols[2].v);
+      
       var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(cols[1].v);
       var lastColumnNo = sheet.getLastColumn();
-     
+      
       var columnValues = [
         [cols[3].v]
       ];
@@ -93,9 +88,7 @@ function recipeUpdateDataToSheet() {
             'values': columnValues
           },
         ]
-      };*/
-      
-      
+      };*/      
       //}
     }
     var request = {
@@ -105,32 +98,23 @@ function recipeUpdateDataToSheet() {
     //Logger.log(dataForbatchUpdate);
     var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
     //Logger.log(response);
-    //Logger.log(countryData);
-    Logger.log('Recipe Results updated');
+    Logger.log(countryData);
+    Logger.log('Tracker Results updated');
   } else {
-    Logger.log('Recipe No rows returned.');
+    Logger.log('Tracker No rows returned.');
   }
 }
 
-function getCellNoForRecipe(forDataType){
+function getCellNoForTracker(forDataType){
   var cellNo = '';
-  if(forDataType == 'recipe home'){
-    cellNo = '20';
+  if(forDataType == 'pregnancy tracker'){
+         cellNo = '4';
+      }
+  if(forDataType == 'baby tracker'){
+    cellNo = '6';
   }
-  if(forDataType == 'recipe search'){
-    cellNo = '21';
-  }
-  if(forDataType == 'recipe listing'){
-    cellNo = '22';
-  }
-  if(forDataType == 'recipe details'){
-    cellNo = '23';
-  }
-  if(forDataType == 'collection listing'){
-    cellNo = '24';
-  }
-  if(forDataType == 'recipe bookmarks'){
-    cellNo = '25';
+  if(forDataType == 'healing tracker'){
+    cellNo = '35';
   }
   return cellNo;
 }

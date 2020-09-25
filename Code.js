@@ -22,6 +22,8 @@ function main(){
   medicineMain();
   sleepScriptJS();
   mediaMain();
+  sleepScriptJS();
+  trackerMain();
 }
 
 function deleteCoreSheets(){

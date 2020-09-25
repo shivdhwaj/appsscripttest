@@ -259,3 +259,27 @@ function freezeFirstColumnAndRow() {
     sheet.setFrozenRows(1);
   }
 }
+
+function _createDateHeaderOnSheet(activeColumn, columnValue, cellRowValue){
+  //sheet.getRange("B2").setFormula("=SUM(B3:B39)");
+  sheetDateCellName = activeColumn;
+  var request = {
+    'valueInputOption': 'USER_ENTERED',
+    'data': [
+      {
+        'range': columnValue+'!'+activeColumn+'1:'+activeColumn+'1',
+        'majorDimension': 'COLUMNS',
+        'values': [[cellRowValue]]
+      }
+    ]
+  };
+  var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
+  var sheet = sheet.getRange(columnValue+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor).setFontColor(dateRowFontColor);
+  var formulaSum = "=SUM("+columnValue+"!"+activeColumn+"3:"+activeColumn+"39)";
+  sheet.getRange(columnValue+'!'+activeColumn+'2').setFormula(formulaSum);
+  //Logger.log(response);
+  Logger.log("Functions Script: Line no 281 - _createDateHeaderOnSheet()");
+  Logger.log('getRange: '+columnValue+'!'+activeColumn+'1:'+activeColumn+'1');
+  Logger.log('Formula Sum getRange: '+columnValue+'!'+activeColumn+'2');
+  Logger.log('Formula Sum: '+formulaSum);
+}

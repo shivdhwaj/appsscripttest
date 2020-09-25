@@ -5,7 +5,7 @@ function mediaMain(){
 }
 
 function getMediaCountMetrics(){
-  Logger.log("Date to execute "+dateToExecute);
+  //Logger.log("Date to execute "+dateToExecute);
   var request = getBigQuerySqlRequest('media_count_metrics_core_markets_master');
   var queryResults = BigQuery.Jobs.query(request, projectId);
   var jobId = queryResults.jobReference.jobId;
@@ -72,20 +72,7 @@ function mediaUpdateDataToSheet() {
         }
       }
       if(isDateAlreadyExists == false){
-        sheetDateCellName = activeColumn;
-        var request = {
-          'valueInputOption': 'USER_ENTERED',
-          'data': [
-            {
-              'range': cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1',
-              'majorDimension': 'COLUMNS',
-              'values': [[cols[0].v]]
-            }
-          ]
-        };
-        var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
-        var sheet = sheet.getRange(cols[1].v+'!'+activeColumn+'1:'+activeColumn+'1').setBackground(dateRowBackgroundColor).setFontColor(dateRowFontColor);
-        //Logger.log(response);
+        _createDateHeaderOnSheet(activeColumn, cols[1].v, cols[0].v);
       }
       if(cellNo){
         var dataAdd = {};
@@ -113,7 +100,7 @@ function mediaUpdateDataToSheet() {
     //Logger.log(dataForbatchUpdate);
     var response = Sheets.Spreadsheets.Values.batchUpdate(request, spreadsheetId);
     //Logger.log(response);
-    Logger.log(countryData);
+    //Logger.log(countryData);
     Logger.log('Media Results updated');
   } else {
     Logger.log('Media No rows returned.');
