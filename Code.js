@@ -25,6 +25,8 @@ function main(){
   mediaMain();
   sleepScriptJS();
   trackerMain();
+  sleepScriptJS();
+  activityMain();
 }
 
 function deleteCoreSheets(){
