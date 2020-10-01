@@ -1,4 +1,5 @@
 var projectId = '';
+var dateFromExecute = '';
 var dateToExecute = '';
 var rows = '';
 var spreadsheetId = '';
@@ -17,6 +18,7 @@ function main(){
   config();
   //This is the main function we are planing to run
   addSheetsTabForCoreMarkets();
+  freezeFirstColumnAndRow();
   //setDateHeaderToSheet();
   recipeMain();
   sleepScriptJS();
