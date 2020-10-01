@@ -263,6 +263,8 @@ function freezeFirstColumnAndRow() {
 function _createDateHeaderOnSheet(sheet, activeColumn, sheetName, cellRowValue){
   //sheet.getRange("B2").setFormula("=SUM(B3:B39)");
   sheetDateCellName = activeColumn;
+  var lastColumnNoPlusOne = sheet.getLastColumn()+1;
+  sheet.insertColumnAfter(lastColumnNoPlusOne);
   var request = {
     'valueInputOption': 'USER_ENTERED',
     'data': [
