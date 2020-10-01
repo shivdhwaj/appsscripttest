@@ -46,7 +46,8 @@ function activityUpdateDataToSheet() {
       
       var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(cols[1].v);
       var lastColumnNo = sheet.getLastColumn();
-      
+      //var lastColumnNoPlusOne = sheet.getLastColumn()+1;
+      //sheet.insertColumnAfter(lastColumnNoPlusOne);
       var columnValues = [
         [cols[3].v]
       ];
