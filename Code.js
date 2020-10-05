@@ -20,6 +20,7 @@ function main(){
   addSheetsTabForCoreMarkets();
   freezeFirstColumnAndRow();
   //setDateHeaderToSheet();
+  
   recipeMain();
   sleepScriptJS();
   medicineMain();
@@ -29,6 +30,8 @@ function main(){
   trackerMain();
   sleepScriptJS();
   activityMain();
+  sleepScriptJS();
+  foodMain();
 }
 
 function deleteCoreSheets(){

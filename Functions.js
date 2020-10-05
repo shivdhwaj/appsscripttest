@@ -77,8 +77,8 @@ function setYesterdayDate() {
   var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
   //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
   dateFromExecute = dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
-  //dateFromExecute = '2020-09-25';
-  //dateToExecute = '2020-09-25';
+  //dateFromExecute = '2020-10-01';
+  //dateToExecute = '2020-10-05';
   //Logger.log(dateToExecute);
 } 
 
