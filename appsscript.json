@@ -9,6 +9,10 @@
       "userSymbol": "Sheets",
       "serviceId": "sheets",
       "version": "v4"
+    }, {
+      "userSymbol": "Analytics",
+      "serviceId": "analytics",
+      "version": "v3"
     }]
   },
   "exceptionLogging": "STACKDRIVER",
