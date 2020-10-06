@@ -32,6 +32,10 @@ function main(){
   activityMain();
   sleepScriptJS();
   foodMain();
+  sleepScriptJS();
+  babyMain();
+  sleepScriptJS();
+  articleMain();
 }
 
 function deleteCoreSheets(){

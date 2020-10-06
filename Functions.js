@@ -1,3 +1,17 @@
+function setYesterdayDate() {
+  
+  var today = new Date();
+  /*
+  Logger.log(Utilities.formatDate(today, 'Asia/Singapore', 'MMMM dd, yyyy HH:mm:ss Z'));
+  */
+  var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
+  //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
+  dateFromExecute = dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
+  //dateFromExecute = '2020-09-01';
+  //dateToExecute = '2020-10-04';
+  //Logger.log(dateToExecute);
+} 
+
 function getUser(){
   //We are making server call here, if runs successfully then we can grab the data from apis as well
   var url = api_url;
@@ -67,21 +81,6 @@ function setDateHeaderToSheet(){
     }
   } 
 }
-
-function setYesterdayDate() {
-  
-  var today = new Date();
-  /*
-  Logger.log(Utilities.formatDate(today, 'Asia/Singapore', 'MMMM dd, yyyy HH:mm:ss Z'));
-  */
-  var yesterday = new Date(new Date().setDate(new Date().getDate()-1));//Reason BigQuery DBs Get data one day after actual collection dumped 
-  //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
-  dateFromExecute = dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
-  //dateFromExecute = '2020-10-01';
-  //dateToExecute = '2020-10-05';
-  //Logger.log(dateToExecute);
-} 
-
 
 //This function will create sheet tab if not there for core markets and set the column a values 
 function addSheetsTabForCoreMarkets(){
@@ -288,4 +287,18 @@ function _createDateHeaderOnSheet(sheet, activeColumn, sheetName, cellRowValue){
   //Logger.log('getRange: '+sheetName+'!'+activeColumn+'1:'+activeColumn+'1');
   //Logger.log('Formula Sum getRange: '+sheetName+'!'+activeColumn+'2');
   //Logger.log('Formula Sum: '+formulaSum);
+}
+
+
+function getGAViewId(country){
+  var viewId = '';
+  switch(country){
+      case "Malaysia": viewId = ga_view_id_my;break;
+      case "Vietnam": viewId = ga_view_id_vn;break;
+      case "Philippines": viewId = ga_view_id_ph;break;
+      case "Thailand": viewId = ga_view_id_th;break;
+      case "Indonesia": viewId = ga_view_id_id;break;
+      case "Singapore": viewId = ga_view_id_sg;break;
+  }
+  return viewId;
 }
