@@ -1,6 +1,6 @@
 function setYesterdayDate() {
   
-  var today = new Date();
+  //var today = new Date();
   /*
   Logger.log(Utilities.formatDate(today, 'Asia/Singapore', 'MMMM dd, yyyy HH:mm:ss Z'));
   */
@@ -8,10 +8,25 @@ function setYesterdayDate() {
   //dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYYMMdd');
   dateFromExecute = dateToExecute = Utilities.formatDate(yesterday, 'Asia/Singapore', 'YYYY-MM-dd');
   //dateFromExecute = '2020-09-01';
-  //dateToExecute = '2020-10-04';
+  //dateToExecute = '2020-10-06';
   //Logger.log(dateToExecute);
 } 
 
+function getDates(startDate, endDate) {
+  var dates = [],
+      currentDate = startDate,
+      addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      };
+  while (currentDate <= endDate) {
+    dates.push(currentDate);
+    currentDate = addDays.call(currentDate, 1);
+    currentDate = Utilities.formatDate(currentDate, 'Asia/Singapore', 'YYYY-MM-dd');
+  }
+  return dates;
+};
 function getUser(){
   //We are making server call here, if runs successfully then we can grab the data from apis as well
   var url = api_url;
@@ -22,6 +37,50 @@ function getUser(){
   var data = JSON.parse(json);
   Logger.log(data.push_title);
 }
+
+function getDataFromAdminAPI(countryId=192, startDate='2020-10-06', endDate='2020-10-06'){
+  config();
+   // If errors persist up to 10 times then terminate the program.
+    for (var i = 0; i < 10; i++) {
+        try {
+          var url = api_url+"?country_id="+countryId+"&start_date="+startDate+"&end_date="+endDate;
+          Logger.log(url);
+          var response = UrlFetchApp.fetch(url);
+          var json = response.getContentText();
+          //Logger.log(json);
+          var data = JSON.parse(json);
+          //Logger.log(data);
+          //Logger.log(data.status_code);
+          if(data.status_code == 200){
+            return data.response;
+          }
+        } catch (err) {
+          // https://developers.google.com/analytics/devguides/reporting/core/v3/coreErrors
+          if (err.message.indexOf('a server error occurred') > -1) {
+            Logger.log('Backend Error');
+            // Note: Don't listen to Google's reply and retry request after 2 minutes
+            Utilities.sleep(2 * 60 * 1000);
+          } else if (err.message.indexOf('User Rate') > -1) {
+            Logger.log('Rate Limit Error');
+            // Exponential Backoff
+            Utilities.sleep(1000 * Math.pow((i + 1), 2));
+          } else if (err.message.indexOf('too many concurrent connections') > -1) {
+            Logger.log('Concurrent Connections Error');
+            // Exponential Backoff
+            Utilities.sleep(1000 * Math.pow((i + 1), 2));
+          } else if (err.message.indexOf('Request failed for') > -1) {
+            Logger.log('Request failed 504 Error: Tried- '+i);
+            // Exponential Backoff
+            Utilities.sleep(1000 * Math.pow((i + 1), 2));
+          } else {
+            Logger.log(err);
+            throw err;
+          }
+        }
+    }
+    throw 'Error. Max retries reached';
+}
+
 function isDate(date) {
         return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
       }
@@ -301,4 +360,34 @@ function getGAViewId(country){
       case "Singapore": viewId = ga_view_id_sg;break;
   }
   return viewId;
+}
+
+function getCountryIdFromName(countryName){
+  var countryId = '';
+  switch(countryName){
+      case "Malaysia": countryId = country_id_my;break;
+      case "Vietnam": countryId = country_id_vn;break;
+      case "Philippines": countryId = country_id_ph;break;
+      case "Thailand": countryId = country_id_th;break;
+      case "Indonesia": countryId = country_id_id;break;
+      case "Singapore": countryId = country_id_sg;break;
+  }
+  return countryId;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function sleepScriptJS() {
+  //console.log('Taking a break...');
+  await sleep(2000);
+  //console.log('Two seconds later, showing sleep in a loop...');
+
+  // Sleep in loop
+  for (let i = 0; i < 5; i++) {
+    if (i === 3)
+      await sleep(2000);
+    //console.log(i);
+  }
 }

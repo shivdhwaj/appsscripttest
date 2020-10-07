@@ -14,6 +14,7 @@ var dateRowFontColor = "#FFFFFF";
 var emailAddress = '';
 
 function main(){
+  Logger.log("[Code] [Main] [17] Main Function Started");
   //deleteCoreSheets();
   config();
   //This is the main function we are planing to run
@@ -36,6 +37,10 @@ function main(){
   babyMain();
   sleepScriptJS();
   articleMain();
+  sleepScriptJS();
+  adminAPIMain();
+  
+  Logger.log("[Code] [Main] [43] Main Function Ended");
 }
 
 function deleteCoreSheets(){
@@ -55,23 +60,6 @@ function oneTimer(){
   addSheetsTabForCoreMarkets();
 }
 
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function sleepScriptJS() {
-  //console.log('Taking a break...');
-  await sleep(2000);
-  //console.log('Two seconds later, showing sleep in a loop...');
-
-  // Sleep in loop
-  for (let i = 0; i < 5; i++) {
-    if (i === 3)
-      await sleep(2000);
-    //console.log(i);
-  }
-}
 
 
 /**
